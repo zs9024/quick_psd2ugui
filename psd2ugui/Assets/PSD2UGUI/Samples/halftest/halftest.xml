@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PSDUI>
+  <psdSize>
+    <width>1242</width>
+    <height>2208</height>
+  </psdSize>
+  <layers>
+    <Layer>
+      <type>Normal</type>
+      <name>HalfPanel</name>
+      <layers>
+        <Layer>
+          <type>Normal</type>
+          <name>house_LeftHalf_1</name>
+          <image>
+            <name>house_LeftHalf_1</name>
+            <imageSource>Custom</imageSource>
+            <imageType>LeftHalfImage</imageType>
+            <position>
+              <x>-330.5</x>
+              <y>-272</y>
+            </position>
+            <size>
+              <width>317</width>
+              <height>304</height>
+            </size>
+          </image>
+        </Layer>
+        <Layer>
+          <type>Normal</type>
+          <name>house_UpHalf_2</name>
+          <image>
+            <name>house_UpHalf_2</name>
+            <imageSource>Custom</imageSource>
+            <imageType>UpHalfImage</imageType>
+            <position>
+              <x>380.5</x>
+              <y>697</y>
+            </position>
+            <size>
+              <width>317</width>
+              <height>304</height>
+            </size>
+          </image>
+        </Layer>
+      </layers>
+    </Layer>
+  </layers>
+</PSDUI>
