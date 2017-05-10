@@ -1,0 +1,10 @@
+
+
+# unity library
+psd2ugui/Library/
+psd2ugui/Temp/
+
+#vs proj
+psd2ugui.CSharp.Editor.csproj
+psd2ugui.sln
+psd2ugui.v12.suo
