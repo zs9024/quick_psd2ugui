@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using UnityEditor.SceneManagement;
 
 namespace PSDUIImporter
 {

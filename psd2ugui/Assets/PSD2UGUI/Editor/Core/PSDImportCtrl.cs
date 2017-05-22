@@ -1,13 +1,9 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+#if UNITY_5_3
 using UnityEditor.SceneManagement;
+#endif
 
 namespace PSDUIImporter
 {
@@ -133,16 +129,22 @@ namespace PSDUIImporter
                 Debug.Log("The file " + xmlFilePath + " wasn't able to generate a PSDUI.");
                 return;
             }
-
+#if UNITY_5_2
+            if (EditorApplication.SaveCurrentSceneIfUserWantsTo() == false) { return; }
+#elif UNITY_5_3
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() == false) { return; }
-
+#endif
             PSDImportUtility.baseFilename = Path.GetFileNameWithoutExtension(xmlFilePath);
             PSDImportUtility.baseDirectory = "Assets/" + Path.GetDirectoryName(xmlFilePath.Remove(0, Application.dataPath.Length + 1)) + "/";
         }
 
         private void InitCanvas()
         {
-            EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);//  EditorApplication.NewScene ();
+#if UNITY_5_2
+            EditorApplication.NewScene();
+#elif UNITY_5_3
+            //EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+#endif
             Canvas temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_CANVAS, typeof(Canvas)) as Canvas;
             PSDImportUtility.canvas = GameObject.Instantiate(temp) as Canvas;
             PSDImportUtility.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
