@@ -115,6 +115,9 @@ namespace PSDUIImporter
                 case ImageType.BottomHalfImage:
                     halfSpriteImport.DrawImage(image, parent);
                     break;
+                case ImageType.QuarterImage:
+                    halfSpriteImport.DrawImage(image, parent);
+                    break;
                 default:
                     break;
             }

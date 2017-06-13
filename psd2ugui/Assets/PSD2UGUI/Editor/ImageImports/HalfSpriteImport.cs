@@ -50,10 +50,13 @@ namespace PSDUIImporter
             {
                 mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Vertical;
             }
-            else
+            else if (image.imageType == ImageType.LeftHalfImage)
             {
-                mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Horizontal;
-                
+                mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Horizontal;                
+            }
+            else if (image.imageType == ImageType.QuarterImage)
+            {
+                mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Quarter;
             }
             mirror.SetNativeSize();
             

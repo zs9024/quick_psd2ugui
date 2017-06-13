@@ -731,6 +731,27 @@ function exportImage(obj,validFileName)
         obj.visible = false;
         return;
     }
+    else if(obj.name.search("Quarter") > 0)     //上下左右均对称的图片切左下四分之一
+    {
+        sceneData += "<imageType>" + "QuarterImage" + "</imageType>\n";
+        
+        obj.visible = true;
+        
+        var recSize = getLayerRec(duppedPsd.duplicate());
+        sceneData += "<position>";
+        sceneData += "<x>" + recSize.x + "</x>";
+        sceneData += "<y>" + recSize.y + "</y>";
+        sceneData += "</position>";
+
+        sceneData += "<size>";
+        sceneData += "<width>" + recSize.width + "</width>";
+        sceneData += "<height>" + recSize.height + "</height>";
+        sceneData += "</size>";
+        
+        cutQuarter(duppedPsd.duplicate(),validFileName); 
+        obj.visible = false;
+        return;
+    }
     else
     {
         sceneData += "<imageType>" + "Image" + "</imageType>\n";
@@ -978,6 +999,36 @@ function cutBottomHalf(doc,layerName){
     trim(doc);
     saveScenePng(doc, layerName, true,true);
     //exportHalfImage(doc,"UpHalf");
+}
+
+// 裁剪左下四分之一
+function cutQuarter(doc,layerName){
+    doc.mergeVisibleLayers();
+    
+    trim(doc);
+    var _obj = doc.activeLayer
+    var width = doc.width;
+    var height = doc.height;
+    var side = height / 2;
+
+    var region = Array(Array(0,height),Array(0,height / 2),Array(width / 2,height / 2),Array(width / 2,height));
+        
+    var selectRect = doc.selection.select(region);
+    doc.selection.copy();
+    var newStem = doc.paste();
+    newStem.name = layerName;
+
+    var deltaX = 0;
+    var deltaY = 0;
+    if (region[0][1] != side){
+        deltaY = -(height - side*2);
+    }
+    newStem.translate(deltaX,deltaY);
+
+    _obj.visible = false;
+
+    trim(doc);
+    saveScenePng(doc, layerName, true,true);
 }
 
 function exportHalfImage(psd,halfType)

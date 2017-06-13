@@ -15,5 +15,6 @@ namespace PSDUIImporter
         SliceImage,
         LeftHalfImage,
         BottomHalfImage,
+        QuarterImage,
     }
 }
