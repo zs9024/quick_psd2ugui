@@ -23,7 +23,6 @@ namespace PSDUIImporter
             halfRectTrans.anchoredPosition = new Vector2(image.position.x, image.position.y);
 
             UnityEngine.UI.Image leftOrUpSprite = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, halfRectTrans.gameObject);
-            UnityEngine.UI.Image rightOrLowSprite = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, halfRectTrans.gameObject);
 
             string assetPath = "";
             if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
@@ -42,31 +41,21 @@ namespace PSDUIImporter
             }
 
             leftOrUpSprite.sprite = sprite;
-            rightOrLowSprite.sprite = sprite;
             RectTransform lOrURectTrans = leftOrUpSprite.GetComponent<RectTransform>();
-            RectTransform rOrLRectTrans = rightOrLowSprite.GetComponent<RectTransform>();
+            lOrURectTrans.anchoredPosition = new Vector2(image.position.x, image.position.y);
 
-            Vector2 size;
-            if (image.imageType == ImageType.UpHalfImage)
+            //添加镜像组件
+            var mirror = lOrURectTrans.gameObject.AddComponent<UGUI.Effects.Mirror>();
+            if (image.imageType == ImageType.BottomHalfImage)
             {
-                size = new Vector2(image.size.width, image.size.height / 2f);
-                lOrURectTrans.sizeDelta = size;
-                lOrURectTrans.anchoredPosition = new Vector2(image.position.x, image.position.y + image.size.height / 4f);//还未设置父节点，要用绝对坐标
-
-                rOrLRectTrans.sizeDelta = size;
-                rOrLRectTrans.anchoredPosition = new Vector2(image.position.x, image.position.y - image.size.height / 4f);
-                rOrLRectTrans.localEulerAngles = new Vector3(180, 0, 0);
+                mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Vertical;
             }
             else
             {
-                size = new Vector2(image.size.width / 2f, image.size.height);
-                lOrURectTrans.sizeDelta = size;
-                lOrURectTrans.anchoredPosition = new Vector2(image.position.x - image.size.width / 4f, image.position.y);
-                rOrLRectTrans.sizeDelta = size;
-                rOrLRectTrans.anchoredPosition = new Vector2(image.position.x + image.size.width / 4f, image.position.y);
-                rOrLRectTrans.localEulerAngles = new Vector3(0, 180, 0);
+                mirror.mirrorType = UGUI.Effects.Mirror.MirrorType.Horizontal;
+                
             }
-
+            mirror.SetNativeSize();
             
         }
     }

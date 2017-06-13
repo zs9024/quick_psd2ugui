@@ -709,9 +709,9 @@ function exportImage(obj,validFileName)
         obj.visible = false;
         return;
     }
-    else if(obj.name.search("UpHalf") > 0)     //上下对称的图片切上面一半
+    else if(obj.name.search("BottomHalf") > 0)     //上下对称的图片切底部一半
     {
-        sceneData += "<imageType>" + "UpHalfImage" + "</imageType>\n";
+        sceneData += "<imageType>" + "BottomHalfImage" + "</imageType>\n";
         
         obj.visible = true;
         
@@ -727,7 +727,7 @@ function exportImage(obj,validFileName)
         sceneData += "<height>" + recSize.height + "</height>";
         sceneData += "</size>";
         
-        cutUpHalf(duppedPsd.duplicate(),validFileName); 
+        cutBottomHalf(duppedPsd.duplicate(),validFileName); 
         obj.visible = false;
         return;
     }
@@ -948,8 +948,8 @@ function cutLeftHalf(doc,layerName){
     // exportHalfImage(doc,"LeftHalf");
 }
 
-// 裁剪上半部分
-function cutUpHalf(doc,layerName){
+// 裁剪下半部分
+function cutBottomHalf(doc,layerName){
     doc.mergeVisibleLayers();
     
     trim(doc);
@@ -958,7 +958,8 @@ function cutUpHalf(doc,layerName){
     var height = doc.height;
     var side = height / 2;
 
-    var region = Array(Array(0,side),Array(0,0),Array(width,0),Array(width,side));
+    //var region = Array(Array(0,side),Array(0,0),Array(width,0),Array(width,side));
+    var region = Array(Array(0,height),Array(0,side),Array(width,side),Array(width,height));
         
     var selectRect = doc.selection.select(region);
     doc.selection.copy();

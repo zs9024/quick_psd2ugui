@@ -14,6 +14,6 @@ namespace PSDUIImporter
         Label,
         SliceImage,
         LeftHalfImage,
-        UpHalfImage,
+        BottomHalfImage,
     }
 }

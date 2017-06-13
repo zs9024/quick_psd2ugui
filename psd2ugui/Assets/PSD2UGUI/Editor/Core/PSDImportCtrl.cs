@@ -112,7 +112,7 @@ namespace PSDUIImporter
                 case ImageType.LeftHalfImage:
                     halfSpriteImport.DrawImage(image, parent);
                     break;
-                case ImageType.UpHalfImage:
+                case ImageType.BottomHalfImage:
                     halfSpriteImport.DrawImage(image, parent);
                     break;
                 default:
@@ -143,7 +143,7 @@ namespace PSDUIImporter
 #if UNITY_5_2
             EditorApplication.NewScene();
 #elif UNITY_5_3
-            //EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+            EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
 #endif
             Canvas temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_CANVAS, typeof(Canvas)) as Canvas;
             PSDImportUtility.canvas = GameObject.Instantiate(temp) as Canvas;
