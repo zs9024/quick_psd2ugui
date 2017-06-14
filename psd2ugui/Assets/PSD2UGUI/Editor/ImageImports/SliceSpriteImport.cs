@@ -16,8 +16,14 @@ namespace PSDUIImporter
             //Debug.Log("==  CommonImagePath  ====" + commonImagePath);
             //Sprite sprite = AssetDatabase.LoadAssetAtPath(commonImagePath, typeof(Sprite)) as Sprite;
 
-            UnityEngine.UI.Image pic = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, parent);
+            UnityEngine.UI.Image pic;
+            if (ownObj != null)
+                pic = ownObj.AddComponent<UnityEngine.UI.Image>();
+            else
+                pic = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, parent);
 
+            RectTransform rectTransform = pic.GetComponent<RectTransform>();
+            PSDImportUtility.SetAnchorMiddleCenter(rectTransform);
             string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
             Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
             if (sprite == null)
@@ -32,7 +38,7 @@ namespace PSDUIImporter
             pic.sprite = sprite;
             pic.type = UnityEngine.UI.Image.Type.Sliced;
 
-            RectTransform rectTransform = pic.GetComponent<RectTransform>();
+            //RectTransform rectTransform = pic.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
             rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
         }

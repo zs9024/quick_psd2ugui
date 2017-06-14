@@ -107,7 +107,7 @@ namespace PSDUIImporter
                     textImport.DrawImage(image, parent, parent);
                     break;
                 case ImageType.SliceImage:
-                    slicedSpriteImport.DrawImage(image, parent);
+                    slicedSpriteImport.DrawImage(image, parent, parent);
                     break;
                 case ImageType.LeftHalfImage:
                     halfSpriteImport.DrawImage(image, parent);
