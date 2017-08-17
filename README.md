@@ -9,7 +9,11 @@
 ## 使用
 * 将脚本文件 Export PSDUI.jsx拷贝至“ps安装目录\Presets\Scripts”目录下，如：“E:\Program Files\PS\Adobe Photoshop CS6 (64 Bit)\Presets\Scripts”。
 * 打开一个psd文件，在cs6中选择“文件->脚本->Export PSDUI”，会弹框选择一个目录，存放脚本运行时的切图和配置文件(xml)。
-* 在unity菜单栏选择psd2ugui/psdimport执行，弹框选择上一步导出的xml文件，将在hierarchy中生成ugui面板
+* 将上一步生成的切图和配置拷贝到unity中，在菜单栏选择psd2ugui/psdimport执行，弹框选择上一步导出的xml文件，将在hierarchy中生成ugui面板
+## 提示
+* 使用编辑器修改或调试ps脚本：找到或下载编辑器adobe extendscript toolkit，一般都在C盘，如C:\Program Files (x86)\Adobe\Adobe Utilities - CS6\ExtendScript Toolkit CS6，
+file/open打开文件“ps安装目录\Presets\Scripts\Export PSDUI.jsx”，目标应用选择“Adobe Photoshop CS6”，就可以断点调试运行了
+* 如果运行ps脚本时出现错误“合并可见图层当前不可用”，可以检查是否有单个图片(比如背景图)位于根节点的最后，并将其移到某个图层组下面，具体见文档
 ## 版本
   v1.0.3<br> 
   2017.6.20<br> 
