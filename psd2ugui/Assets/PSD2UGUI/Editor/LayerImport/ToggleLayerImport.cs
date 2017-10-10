@@ -16,47 +16,38 @@ namespace PSDUIImporter
         }
         public void DrawLayer(Layer layer, GameObject parent)
         {
-            //UnityEngine.UI.Toggle temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.PREFAB_PATH_TOGGLE, typeof(UnityEngine.UI.Toggle)) as UnityEngine.UI.Toggle;
-            UnityEngine.UI.Toggle toggle = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Toggle>(PSDImporterConst.ASSET_PATH_TOGGLE, layer.name, parent);// GameObject.Instantiate(temp) as UnityEngine.UI.Toggle;
+            UnityEngine.UI.Toggle toggle = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Toggle>(PSDImporterConst.ASSET_PATH_TOGGLE, layer.name, parent);
 
-            if (layer.image != null)
+            if (layer.layers == null)
             {
-                //for (int imageIndex = 0; imageIndex < layer.images.Length; imageIndex++)
-                //{
-                    PSImage image = layer.image;
+                Debug.LogError("error! bad toggle layers.");
+                return ;
+            }
 
-                    if (image.name.ToLower().Contains("background"))
+            for (int index = 0; index < layer.layers.Length; index++)
+            {
+                Layer subLayer = layer.layers[index];
+                PSImage image = subLayer.image;
+                if (image != null)
+                {
+                    string lowerName = image.name.ToLower();
+                    if (lowerName.Contains("_checkmark"))
                     {
-                        if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
-                        {
-                            string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
-                            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
-                            toggle.image.sprite = sprite;
-
-                            RectTransform rectTransform = toggle.GetComponent<RectTransform>();
-                            rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
-                            rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
-
-                            //rectTransform.SetParent(parent.transform, true);
-
-                            //PosLoader posloader = toggle.gameObject.AddComponent<PosLoader>();
-                            //posloader.worldPos = rectTransform.position;
-                        }
+                        ctrl.DrawImage(image, toggle.gameObject, toggle.graphic.gameObject);
                     }
-                    else if (image.name.ToLower().Contains("mask"))
+                    else if (lowerName.Contains("_background"))
                     {
-                        if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
-                        {
-                            string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
-                            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
-                            toggle.graphic.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
-                        }
+                        ctrl.DrawImage(image, toggle.gameObject, toggle.targetGraphic.gameObject);
                     }
                     else
                     {
-                        ctrl.DrawImage(image, toggle.graphic.gameObject);
+                        ctrl.DrawImage(image, toggle.gameObject);
                     }
-                //}
+                }
+                else
+                {
+                    ctrl.DrawLayer(subLayer, toggle.gameObject);
+                }
             }
         }
     }
