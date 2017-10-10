@@ -15,15 +15,12 @@ namespace PSDUIImporter
         {
             UnityEngine.UI.Text myText;
             if (ownObj != null)
-                myText = ownObj.AddComponent<UnityEngine.UI.Text>();
+                myText = ownObj.AddMissingComponent<UnityEngine.UI.Text>();
             else
                 myText = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Text>(PSDImporterConst.ASSET_PATH_TEXT, image.name, parent);
 
             RectTransform rectTransform = myText.GetComponent<RectTransform>();
-            rectTransform.offsetMin = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0.5f, 0.5f);
-            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            rectTransform.SetAnchorMiddleCenter();
 
             //UnityEngine.UI.Text myText = PSDImportUtility.LoadAndInstant<Text>(PSDImporterConst.ASSET_PATH_TEXT, image.name, parent);
             //                        myText.color = image.arguments[0];

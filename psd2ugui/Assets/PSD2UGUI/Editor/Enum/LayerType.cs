@@ -21,5 +21,6 @@ namespace PSDUIImporter
         InputField,
         ScrollBar,
         LayoutElement,
+        TabGroup,
     }
 }

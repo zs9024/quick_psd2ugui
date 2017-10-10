@@ -39,5 +39,7 @@ namespace PSDUIImporter
         public static string ASSET_PATH_GROUP_H = PSDUI_PATH + "HorizontalGroup" + PSDUI_SUFFIX;
         public static string ASSET_PATH_INPUTFIELD = PSDUI_PATH + "InputField" + PSDUI_SUFFIX;
         public static string ASSET_PATH_LAYOUTELEMENT = PSDUI_PATH + "LayoutElement" + PSDUI_SUFFIX;
+        public static string ASSET_PATH_TAB = PSDUI_PATH + "Tab" + PSDUI_SUFFIX;
+        public static string ASSET_PATH_TABGROUP = PSDUI_PATH + "TabGroup" + PSDUI_SUFFIX;
     }
 }

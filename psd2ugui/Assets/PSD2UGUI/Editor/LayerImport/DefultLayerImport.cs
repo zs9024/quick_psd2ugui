@@ -28,15 +28,12 @@ namespace PSDUIImporter
 
             if (layer.image != null)
             {
-                //for (int imageIndex = 0; imageIndex < layer.images.Length; imageIndex++)
-                //{
-                    PSImage image = layer.image;
-                    ctrl.DrawImage(image, obj.gameObject);
-                //}
+                PSImage image = layer.image;
+                //ctrl.DrawImage(image, obj.gameObject);
+                ctrl.DrawImage(image,parent, obj.gameObject);
             }
 
             ctrl.DrawLayers(layer.layers, obj.gameObject);
-            //obj.transform.SetParent(parent.transform, false); //parent.transform;
         }
     }
 }

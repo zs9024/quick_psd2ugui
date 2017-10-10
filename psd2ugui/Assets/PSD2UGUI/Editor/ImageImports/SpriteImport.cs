@@ -18,7 +18,7 @@ namespace PSDUIImporter
             {
                 UnityEngine.UI.Image pic;
                 if (ownObj != null)
-                    pic = ownObj.AddComponent<UnityEngine.UI.Image>();
+                    pic = ownObj.AddMissingComponent<UnityEngine.UI.Image>();
                 else
                     pic = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, parent);
 
@@ -45,7 +45,7 @@ namespace PSDUIImporter
             {
                 UnityEngine.UI.Image pic;
                 if (ownObj != null)
-                    pic = ownObj.AddComponent<UnityEngine.UI.Image>();
+                    pic = ownObj.AddMissingComponent<UnityEngine.UI.Image>();
                 else
                     pic = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, parent); 
 

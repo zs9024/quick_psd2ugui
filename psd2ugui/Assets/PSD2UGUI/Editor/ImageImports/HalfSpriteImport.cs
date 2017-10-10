@@ -15,30 +15,32 @@ namespace PSDUIImporter
         {
             RectTransform halfRectTrans = parent.GetComponent<RectTransform>();
 
-            //2017.1.20注：因为已经修改为layer会创建gameobject，所以不再需要加载预设,直接在parent下组装即可
-            //创建一个节点存放两张半图  
-            //var halfRectTrans = PSDImportUtility.LoadAndInstant<RectTransform>(PSDImporterConst.ASSET_PATH_HALFIMAGE, image.name, parent);
             PSDImportUtility.SetAnchorMiddleCenter(halfRectTrans);
             halfRectTrans.sizeDelta = new Vector2(image.size.width, image.size.height);
             halfRectTrans.anchoredPosition = new Vector2(image.position.x, image.position.y);
 
-            UnityEngine.UI.Image leftOrUpSprite = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, halfRectTrans.gameObject);
-
-            string assetPath = "";
-            if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
-            {
-                assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
-            }
+            UnityEngine.UI.Image leftOrUpSprite;
+            if (ownObj != null)
+                leftOrUpSprite = ownObj.AddMissingComponent<UnityEngine.UI.Image>();
             else
-            {
-                assetPath = PSDImporterConst.Globle_BASE_FOLDER + image.name.Replace(".", "/") + PSDImporterConst.PNG_SUFFIX;
-            }
+                leftOrUpSprite = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Image>(PSDImporterConst.ASSET_PATH_IMAGE, image.name, halfRectTrans.gameObject);
 
-            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
-            if (sprite == null)
-            {
-                Debug.Log("loading asset at path: " + assetPath);
-            }
+            //string assetPath = "";
+            //if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
+            //{
+            //    assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+            //}
+            //else
+            //{
+            //    assetPath = PSDImporterConst.Globle_BASE_FOLDER + image.name.Replace(".", "/") + PSDImporterConst.PNG_SUFFIX;
+            //}
+
+            //Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+            Sprite sprite = image.LoadAssetAtPath<Sprite>() as Sprite;
+//             if (sprite == null)
+//             {
+//                 Debug.Log("loading asset at path: " + assetPath);
+//             }
 
             leftOrUpSprite.sprite = sprite;
             RectTransform lOrURectTrans = leftOrUpSprite.GetComponent<RectTransform>();

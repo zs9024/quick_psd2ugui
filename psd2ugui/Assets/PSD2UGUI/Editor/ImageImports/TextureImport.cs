@@ -14,16 +14,17 @@ namespace PSDUIImporter
         {
             UnityEngine.UI.RawImage pic;
             if (ownObj != null)
-                pic = ownObj.AddComponent<UnityEngine.UI.RawImage>();
+                pic = ownObj.AddMissingComponent<UnityEngine.UI.RawImage>();
             else
                 pic = PSDImportUtility.LoadAndInstant<UnityEngine.UI.RawImage>(PSDImporterConst.ASSET_PATH_RAWIMAGE, image.name, parent);
             
-            string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
-            Texture2D texture = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Texture2D)) as Texture2D;
-            if (texture == null)
-            {
-                Debug.Log("loading asset at path: " + PSDImportUtility.baseDirectory + image.name);
-            }
+//             string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+//             Texture2D texture = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Texture2D)) as Texture2D;
+//             if (texture == null)
+//             {
+//                 Debug.Log("loading asset at path: " + PSDImportUtility.baseDirectory + image.name);
+//             }
+            Texture2D texture = image.LoadAssetAtPath<Texture2D>() as Texture2D;
 
             pic.texture = texture as Texture;
             RectTransform rectTransform = pic.GetComponent<RectTransform>();

@@ -135,53 +135,64 @@ function exportLayer(obj)
 
 function exportLayerSet(_layer)
 {
-    if (typeof(_layer.layers) == "undefined" || _layer.layers.length<=0 ){
+    if (typeof(_layer.layers) == "undefined" || _layer.layers.length<=0 )
+    {
         return
     }
     if (_layer.name.search("@ScrollView") >= 0)
     {
-      exportScrollView(_layer);
-  }
-  else if (_layer.name.search("@Grid") >= 0)
-  {
-      exportGrid(_layer);
-  }
-  else if (_layer.name.search("@Button") >= 0)
-  {
-      exportButton(_layer);
-  }
-  else if (_layer.name.search("@Toggle") >= 0)
-  {
-      exportToggle(_layer);
-  }
-  else if (_layer.name.search("@Panel") >= 0)
-  {
-      exportPanel(_layer);
-  }
-  else if (_layer.name.search("@Slider")>=0) {
-      exportSlider(_layer);
-  }
-  else if (_layer.name.search("@Group")>=0) {
-      exportGroup(_layer);
-  }
-  else if (_layer.name.search("@InputField") >=0) {
-      exportInputField(_layer);
-  }
-  else if (_layer.name.search("@Scrollbar") >=0) {
-      exportScrollBar(_layer);
-  }else if (_layer.name.search("@LE") >=0) {//增加布局元素导出
-        exportLayoutElement(_layer);
+        exportScrollView(_layer);
     }
-  else
-  {
-    sceneData += "<Layer>";
-    sceneData += "<type>Normal</type>";
-    sceneData += "<name>" + _layer.name + "</name>";    
-    sceneData += "<layers>";
-    exportAllLayers(_layer)
-    sceneData += "</layers>";
-    sceneData += "</Layer>";
-  }
+    else if (_layer.name.search("@Grid") >= 0)
+    {
+        exportGrid(_layer);
+    }
+    else if (_layer.name.search("@Button") >= 0)
+    {
+        exportButton(_layer);
+    }
+    else if (_layer.name.search("@Toggle") >= 0)
+    {
+        exportToggle(_layer);
+    }
+    else if (_layer.name.search("@Panel") >= 0)
+    {
+        exportPanel(_layer);
+    }
+    else if (_layer.name.search("@Slider")>=0) 
+    {
+        exportSlider(_layer);
+    }
+    else if (_layer.name.search("@Group")>=0) 
+    {
+        exportGroup(_layer);
+    }
+    else if (_layer.name.search("@InputField") >=0) 
+    {
+        exportInputField(_layer);
+    }
+    else if (_layer.name.search("@Scrollbar") >=0) 
+    {
+        exportScrollBar(_layer);
+    }
+    else if (_layer.name.search("@LE") >=0)                         //增加布局元素导出
+    {       
+        exportLayoutElement(_layer)
+    }
+     else if (_layer.name.search("@TabGroup") >=0)              //增加页签类型导出
+    {       
+        exportTabGroup(_layer)
+    }
+    else
+    {
+        sceneData += "<Layer>";
+        sceneData += "<type>Normal</type>";
+        sceneData += "<name>" + _layer.name + "</name>";    
+        sceneData += "<layers>";
+        exportAllLayers(_layer)
+        sceneData += "</layers>";
+        sceneData += "</Layer>";
+    }
 }
 
 function exportLayoutElement(obj)
@@ -193,13 +204,6 @@ function exportLayoutElement(obj)
 
     sceneData += "<layers>";
     exportAllLayers(obj);
-
-    // sceneData += "<images>";
-    // for (var j = obj.artLayers.length - 1; 0 <= j; j--)
-    // {
-    //     exportArtLayer(obj.artLayers[j]);
-    // }
-    // sceneData += "</images>";
     sceneData += "</layers>";
     
     obj.visible = true;
@@ -761,6 +765,20 @@ function exportImage(obj,validFileName)
     saveScenePng(duppedPsd.duplicate(), validFileName, true);
     obj.visible = false;
           
+}
+
+//导出页签
+function exportTabGroup(obj)
+{
+    var itemName = obj.name.substring(0, obj.name.search("@"));
+    sceneData += ("<Layer>\n<type>TabGroup</type>\n<name>" + itemName + "</name>\n");
+    sceneData += "<layers>";
+    
+    exportAllLayers(obj);
+
+    sceneData += "</layers>";
+
+    sceneData += "\n</Layer>";
 }
 
 function hideAllLayers(obj)

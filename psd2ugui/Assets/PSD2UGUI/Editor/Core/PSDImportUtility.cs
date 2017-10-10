@@ -75,7 +75,7 @@ namespace PSDUIImporter
             return item.GetComponent<T>();
         }
 
-        public static void SetAnchorMiddleCenter(RectTransform rectTransform)
+        public static void SetAnchorMiddleCenter(this RectTransform rectTransform)
         {
             if (rectTransform == null)
             {
@@ -88,5 +88,48 @@ namespace PSDUIImporter
             rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         }
 
+        public static Object LoadAssetAtPath<T>(this PSImage image)
+        {
+            string assetPath = "";
+            if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Custom)
+            {
+                assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+            }
+            else
+            {
+                assetPath = PSDImporterConst.Globle_BASE_FOLDER + image.name.Replace(".", "/") + PSDImporterConst.PNG_SUFFIX;
+            }
+
+            Object obj = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
+            if (obj == null)
+            {
+                Debug.LogWarning("loading asset is null, at path: " + assetPath);
+            }
+
+            return obj;
+        }
+
+        public static RectTransform GetRectTransform(this GameObject source)
+        {
+            return source.GetComponent<RectTransform>();
+        }
+
+        public static T AddMissingComponent<T>(this GameObject go) where T : Component
+        {
+            T comp = go.GetComponent<T>();
+            if (comp == null)
+                comp = go.AddComponent<T>();
+            return comp;
+        }
+
+        public static void DestroyComponent<T>(this GameObject go) where T : Component
+        {
+            if (go == null)
+                return;
+
+            T comp = go.GetComponent<T>();
+            if (comp != null)
+                UnityEngine.Object.Destroy(comp);
+        }
     }
 }
