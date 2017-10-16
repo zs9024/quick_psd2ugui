@@ -918,8 +918,13 @@ function saveScenePng(psd, fileName, writeToDisk,notMerge)
      {
         // save the image
         var pngFile = new File(destinationFolder + "/" + fileName + ".png");
-        var pngSaveOptions = new PNGSaveOptions();
-        psd.saveAs(pngFile, pngSaveOptions, true, Extension.LOWERCASE);
+        //var pngSaveOptions = new PNGSaveOptions();
+        //psd.saveAs(pngFile, pngSaveOptions, true, Extension.LOWERCASE);
+        
+        var pngSaveOptions = new ExportOptionsSaveForWeb();
+        pngSaveOptions.format = SaveDocumentType.PNG;
+        pngSaveOptions.PNG8 = false;
+        psd.exportDocument(pngFile,ExportType.SAVEFORWEB,pngSaveOptions);
     }
     psd.close(SaveOptions.DONOTSAVECHANGES);
 
