@@ -323,6 +323,8 @@ function setLayerSizeAndPos(layer)
     sceneData += "</size>";
 
     layer.visible = false;
+    
+    return recSize;
 }
 
 function exportGrid(obj)
@@ -344,10 +346,11 @@ function exportGrid(obj)
     if (obj.layers[obj.layers.length - 1].name.search("@Size") < 0)
     {
         alert("Bottom layer's name doesn't contain '@Size'");
+        return;
     }
     else
     {  
-        setLayerSizeAndPos(obj.layers[obj.layers.length - 1]);
+        recSize = setLayerSizeAndPos(obj.layers[obj.layers.length - 1]);
     }
 
     var totalContentCount = obj.layers.length - 1;  
