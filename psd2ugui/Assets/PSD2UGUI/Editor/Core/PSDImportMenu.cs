@@ -16,8 +16,8 @@ namespace PSDUIImporter
     public class PSDImportMenu : Editor
     {
 
-        [MenuItem("PSD2UGUI/PSDImport ...")]
-        static public void ImportHogSceneMenuItem()
+        [MenuItem("QuickTool/PSDImport ...",false,1)]
+        static public void ImportPSD()
         {
             string inputFile = EditorUtility.OpenFilePanel("Choose PSDUI File to Import", Application.dataPath, "xml");
             if ((inputFile != null) && (inputFile != "") && (inputFile.StartsWith(Application.dataPath)))
