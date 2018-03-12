@@ -59,13 +59,13 @@ end
 --region UI Event Register 
 function CodePanel:AddEvent()
 	self.button_Button.onClick:AddListener(function () self:OnButtonClicked(); end);
-	self.toggle_Toggle.onValueChanged:AddListener(function (args) self:OnToggleValueChanged; end);
-	self.slider_Slider.onValueChanged:AddListener(function (args) self:OnSliderValueChanged; end);
-	self.dropdown_Dropdown.onValueChanged:AddListener(function (args) self:OnDropdownValueChanged; end);
-	self.scrollrect_Template.onValueChanged:AddListener(function (args) self:OnTemplateValueChanged; end);
-	self.toggle_Item.onValueChanged:AddListener(function (args) self:OnItemValueChanged; end);
-	self.scrollbar_Scrollbar.onValueChanged:AddListener(function (args) self:OnScrollbarValueChanged; end);
-	self.inputfield_InputField.onValueChanged:AddListener(function (args) self:OnInputFieldValueChanged; end);
+	self.toggle_Toggle.onValueChanged:AddListener(function (args) self:OnToggleValueChanged(args); end);
+	self.slider_Slider.onValueChanged:AddListener(function (args) self:OnSliderValueChanged(args); end);
+	self.dropdown_Dropdown.onValueChanged:AddListener(function (args) self:OnDropdownValueChanged(args); end);
+	self.scrollrect_Template.onValueChanged:AddListener(function (args) self:OnTemplateValueChanged(args); end);
+	self.toggle_Item.onValueChanged:AddListener(function (args) self:OnItemValueChanged(args); end);
+	self.scrollbar_Scrollbar.onValueChanged:AddListener(function (args) self:OnScrollbarValueChanged(args); end);
+	self.inputfield_InputField.onValueChanged:AddListener(function (args) self:OnInputFieldValueChanged(args); end);
 end
  
 
