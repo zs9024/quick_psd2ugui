@@ -1,5 +1,5 @@
 //this file is auto created by QuickCode,you can edit it 
-//do not need to care initialization of ui wedget any more 
+//do not need to care initialization of ui widget any more 
 //------------------------------------------------------------------------------
 /**
 * @author :

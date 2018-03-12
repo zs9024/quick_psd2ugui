@@ -35,7 +35,7 @@ namespace Quick.Code
         //选择的根游戏体
         private GameObject root;
         //ui控件列表
-        private List<UIBehaviour> uiWedgets = new List<UIBehaviour>();
+        private List<UIBehaviour> uiWidgets = new List<UIBehaviour>();
         //ui游戏对象列表
         private List<GameObject> uiObjects = new List<GameObject>();
         //视图宽度一半
@@ -43,7 +43,7 @@ namespace Quick.Code
         //视图高度一半
         private float halfViewHeight;
 
-        private Vector2 scrollWedgetPos;
+        private Vector2 scrollWidgetPos;
         private Vector2 scrollObjectPos;
         private Vector2 scrollTextPos;
 
@@ -61,7 +61,7 @@ namespace Quick.Code
         //变量编号
         private int variableNum;
         //需要注册事件的控件,可通过toggle选择
-        private Dictionary<string, bool> selectedEventWedgets = new Dictionary<string, bool>();
+        private Dictionary<string, bool> selectedEventWidgets = new Dictionary<string, bool>();
         //UI 类名
         private string className;
         //生成脚本的类型
@@ -146,7 +146,7 @@ namespace Quick.Code
 
                 if(lastRoot != null && lastRoot != root)
                 {
-                    uiWedgets.Clear();
+                    uiWidgets.Clear();
                     uiObjects.Clear();
                 }
             }
@@ -175,13 +175,13 @@ namespace Quick.Code
 
                     RecursiveUI(root.transform, (tran) =>
                     {
-                        UIBehaviour[] wedgets = tran.GetComponents<UIBehaviour>();
-                        for (int i = 0; i < wedgets.Length; i++)
+                        UIBehaviour[] widgets = tran.GetComponents<UIBehaviour>();
+                        for (int i = 0; i < widgets.Length; i++)
                         {
-                            var wedget = wedgets[i];
-                            if (wedget != null && !uiWedgets.Contains(wedget))
+                            var widget = widgets[i];
+                            if (widget != null && !uiWidgets.Contains(widget))
                             {
-                                uiWedgets.Add(wedget);
+                                uiWidgets.Add(widget);
                             }
                         }
                     });
@@ -189,7 +189,7 @@ namespace Quick.Code
 
                 if (GUILayout.Button("清除控件"))
                 {
-                    uiWedgets.Clear();
+                    uiWidgets.Clear();
                 }
                 if (GUILayout.Button("清除其他"))
                 {
@@ -206,8 +206,8 @@ namespace Quick.Code
             EditorGUILayout.Space();
 
             ReorderableListGUI.Title("UI控件");
-            scrollWedgetPos = EditorGUILayout.BeginScrollView(scrollWedgetPos);
-            ReorderableListGUI.ListField<UIBehaviour>(uiWedgets, DrawWidget);
+            scrollWidgetPos = EditorGUILayout.BeginScrollView(scrollWidgetPos);
+            ReorderableListGUI.ListField<UIBehaviour>(uiWidgets, DrawWidget);
             EditorGUILayout.EndScrollView();
         }
 
@@ -285,7 +285,7 @@ namespace Quick.Code
                 GUI.Box(vScope.rect, "");
 
                 EditorGUILayout.LabelField("选择需要注册事件回调的控件:");
-                DrawEventWedget();
+                DrawEventWidget();
 
                 EditorGUILayout.Space();
                 if (GUILayout.Button("注册事件", GUILayout.Width(halfViewWidth / 3f)))
@@ -331,7 +331,7 @@ namespace Quick.Code
                     }
                     if (GUILayout.Button("绑定UI(无需查找赋值)"))
                     {
-                        BindSerializeWedget();
+                        BindSerializeWidget();
                     }
                 }
             }
@@ -354,7 +354,7 @@ namespace Quick.Code
                 GUI.Box(vScope.rect, "");
 
                 EditorGUILayout.LabelField("选择需要注册事件回调的控件:");
-                DrawEventWedget();
+                DrawEventWidget();
 
                 EditorGUILayout.Space();
                 if (GUILayout.Button("注册事件", GUILayout.Width(halfViewWidth / 3f)))
@@ -424,11 +424,11 @@ namespace Quick.Code
             }
 
             //控件列表
-            for (int i = 0; i < uiWedgets.Count; i++)
+            for (int i = 0; i < uiWidgets.Count; i++)
             {
-                if (uiWedgets[i] == null) continue;
+                if (uiWidgets[i] == null) continue;
 
-                Type type = uiWedgets[i].GetType();
+                Type type = uiWidgets[i].GetType();
                 if(type == null)
                 {
                     Debug.LogError("BuildUICode type error !");
@@ -436,7 +436,7 @@ namespace Quick.Code
                 }
 
                 string typeName = type.Name;
-                string variableName = string.Format("{0}_{1}", typeName.ToLower(), uiWedgets[i].name);
+                string variableName = string.Format("{0}_{1}", typeName.ToLower(), uiWidgets[i].name);
                 variableName = variableName.Replace(' ','_');   //命名有空格的情况
                 //重名处理
                 ++variableNum;
@@ -444,7 +444,7 @@ namespace Quick.Code
                 {
                     variableName += variableNum;  
                 }
-                variableNameDic.Add(variableName, uiWedgets[i]);
+                variableNameDic.Add(variableName, uiWidgets[i]);
 
                 if (isMono)
                 {
@@ -493,36 +493,36 @@ namespace Quick.Code
             return codeStateText.ToString();
         }
         
-        private void DrawEventWedget()
+        private void DrawEventWidget()
         {            
             using (EditorGUILayout.HorizontalScope hScope = new EditorGUILayout.HorizontalScope())
             {
                 //筛选当前UI的事件控件
-                foreach (var elem in Enum.GetValues(typeof(CodeConfig.EventWedgetType)))
+                foreach (var elem in Enum.GetValues(typeof(CodeConfig.EventWidgetType)))
                 {
-                    for (int i = 0; i < uiWedgets.Count; i++)
+                    for (int i = 0; i < uiWidgets.Count; i++)
                     {
-                        if (uiWedgets[i] == null) continue;
+                        if (uiWidgets[i] == null) continue;
 
-                        Type type = uiWedgets[i].GetType(); 
+                        Type type = uiWidgets[i].GetType(); 
                         if (type == null)
                         {
                             Debug.LogError("BuildUICode type error !");
                             continue;
                         }
 
-                        if (type.Name == elem.ToString() && !selectedEventWedgets.ContainsKey(type.Name))
+                        if (type.Name == elem.ToString() && !selectedEventWidgets.ContainsKey(type.Name))
                         {
-                            selectedEventWedgets.Add(type.Name, true);
+                            selectedEventWidgets.Add(type.Name, true);
                         }
                     }                   
                 }                
 
                 //绘制toggle,注意不能遍历dic的同时赋值
-                List<string> list = new List<string>(selectedEventWedgets.Keys);
+                List<string> list = new List<string>(selectedEventWidgets.Keys);
                 foreach(string wedagetName in list)
                 {
-                    selectedEventWedgets[wedagetName] = EditorGUILayout.ToggleLeft(wedagetName, selectedEventWedgets[wedagetName],
+                    selectedEventWidgets[wedagetName] = EditorGUILayout.ToggleLeft(wedagetName, selectedEventWidgets[wedagetName],
                         GUILayout.Width(halfViewWidth / 8f));
                 }
             }
@@ -540,37 +540,37 @@ namespace Quick.Code
             codeEventText.Append(eventRegion);
             codeEventText.AppendFormat(methodStartFmt, "AddEvent");
 
-            bool hasEventWedget = false;    //标识是否有控件注册了事件
-            for (int i = 0; i < uiWedgets.Count; i++)
+            bool hasEventWidget = false;    //标识是否有控件注册了事件
+            for (int i = 0; i < uiWidgets.Count; i++)
             {
-                if (uiWedgets[i] == null) continue;
+                if (uiWidgets[i] == null) continue;
 
                 //剔除不是事件或者是事件但未勾选toggle的控件
-                string typeName = uiWedgets[i].GetType().Name;
-                if (!selectedEventWedgets.ContainsKey(typeName) || !selectedEventWedgets[typeName])
+                string typeName = uiWidgets[i].GetType().Name;
+                if (!selectedEventWidgets.ContainsKey(typeName) || !selectedEventWidgets[typeName])
                 {
                     continue;
                 }                
              
                 foreach (var vName in variableNameDic.Keys)
                 {
-                    if (uiWedgets[i].Equals(variableNameDic[vName]))
+                    if (uiWidgets[i].Equals(variableNameDic[vName]))
                     {
                         string variableName = vName;
                         if (!string.IsNullOrEmpty(variableName))
                         {
                             string methodName = variableName.Substring(variableName.IndexOf('_') + 1);
-                            if (uiWedgets[i] is Button)
+                            if (uiWidgets[i] is Button)
                             {                                
                                 codeEventText.AppendFormat(onClickSerilCode, variableName, methodName);
                                 codeEventText.AppendFormat(btnCallbackSerilCode, methodName);
 
-                                hasEventWedget = true;
+                                hasEventWidget = true;
                             }
                             else
                             {
                                 string addEventStr = string.Format(onValueChangeSerilCode, variableName, methodName);
-                                if (hasEventWedget)
+                                if (hasEventWidget)
                                 {
                                     codeEventText.Insert(codeEventText.ToString().LastIndexOf(';') + 1, addEventStr);
                                 }
@@ -580,11 +580,11 @@ namespace Quick.Code
                                 }
 
                                 string paramType = "";
-                                foreach (string wedgetType in CodeConfig.eventCBParamDic.Keys)
+                                foreach (string widgetType in CodeConfig.eventCBParamDic.Keys)
                                 {
-                                    if (typeName == wedgetType)
+                                    if (typeName == widgetType)
                                     {
-                                        paramType = CodeConfig.eventCBParamDic[wedgetType];
+                                        paramType = CodeConfig.eventCBParamDic[widgetType];
                                         break;
                                     }
                                 }
@@ -594,7 +594,7 @@ namespace Quick.Code
                                     codeEventText.AppendFormat(eventCallbackSerilCode, methodName, paramType);
                                 }
 
-                                hasEventWedget = true;
+                                hasEventWidget = true;
                             }                           
                         }
                         break;
@@ -603,7 +603,7 @@ namespace Quick.Code
             }
 
             string codeStr = codeEventText.ToString();
-            if (hasEventWedget)
+            if (hasEventWidget)
             {
                 codeEventText.Insert(codeStr.LastIndexOf(';') + 1, methodEnd);
             }
@@ -761,7 +761,7 @@ namespace Quick.Code
         /// <summary>
         /// 给UI变量绑定实例
         /// </summary>
-        private void BindSerializeWedget()
+        private void BindSerializeWidget()
         {
             if (EditorApplication.isCompiling)
             {

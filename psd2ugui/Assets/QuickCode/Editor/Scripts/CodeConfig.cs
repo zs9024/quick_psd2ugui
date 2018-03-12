@@ -9,7 +9,7 @@ namespace Quick.Code
         /// <summary>
         /// 需要注册事件的UI控件类型
         /// </summary>
-        public enum EventWedgetType
+        public enum EventWidgetType
         {
             Button,
             Toggle,
@@ -36,7 +36,7 @@ namespace Quick.Code
         public const string methodEnd = "\n\t}\n";
 
         public const string codeAnnotation = @"//this file is auto created by QuickCode,you can edit it 
-//do not need to care initialization of ui wedget any more 
+//do not need to care initialization of ui widget any more 
 //------------------------------------------------------------------------------
 /**
 * @author :
@@ -88,7 +88,7 @@ namespace Quick.Code
         public const string methodEndLua = "\nend\n";
 
         public const string codeAnnotationLua = @"--this file is auto created by QuickCode,you can edit it 
---do not need to care initialization of ui wedget any more 
+--do not need to care initialization of ui widget any more 
 --------------------------------------------------------------------------------
 --/**
 --* @author :
