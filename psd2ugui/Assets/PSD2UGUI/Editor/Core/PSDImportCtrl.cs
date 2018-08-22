@@ -1,6 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
+using UnityEngine.EventSystems;
+
 #if UNITY_5_3
 using UnityEditor.SceneManagement;
 #endif
@@ -161,8 +163,19 @@ namespace PSDUIImporter
             scaler.matchWidthOrHeight = 1f;
             scaler.referenceResolution = new Vector2(psdUI.psdSize.width, psdUI.psdSize.height);
 
-            GameObject go = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_EVENTSYSTEM, typeof(GameObject)) as GameObject;
-            PSDImportUtility.eventSys = GameObject.Instantiate(go) as GameObject;
+            // find 
+            var _eventSystem = Object.FindObjectOfType<EventSystem>();
+
+            if (_eventSystem != null)
+            {
+                PSDImportUtility.eventSys = _eventSystem.gameObject;
+            }
+            else
+            {
+                GameObject go = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_EVENTSYSTEM, typeof(GameObject)) as GameObject;
+
+                PSDImportUtility.eventSys = GameObject.Instantiate(go) as GameObject;
+            }
         }
 
         private void LoadLayers()
