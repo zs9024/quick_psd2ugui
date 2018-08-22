@@ -637,6 +637,71 @@ function exportLabel(obj,validFileName)
         sceneData += "<string>" + obj.textItem.justification + "</string>";     //加对齐方式
     }
     sceneData += "</arguments>";
+	
+	// 透明度
+	sceneData += "<opacity>" + obj.opacity +"</opacity>";
+	
+	// 新增渐变
+	if(obj.name.search("_JB") >= 0)
+	{
+		var _text = obj.name.substring(obj.name.search("_JB"), obj.name.length);
+		
+		var params = _text.split("|");
+		params = params[0].split(":");
+		
+		if (params.length > 1)
+		{
+			sceneData += "<gradient>"
+				
+			for (var i = 0; i < params.length; ++i)
+			{
+				if (params[i].search("_") >=0)
+				{
+					continue;
+				}
+				
+				sceneData += params[i];
+				
+				if (i < params.length - 1)
+				{
+					sceneData += "|";
+				}
+			}
+			
+			sceneData += "</gradient>";
+		}
+	}
+	
+	// 新增描边
+	if(obj.name.search("_OL") >= 0)
+	{
+		var _text = obj.name.substring(obj.name.search("_OL"), obj.name.length);
+		
+		var params = _text.split("|");
+		params = params[0].split(":");
+				
+		if (params.length > 1)
+		{
+			sceneData += "<outline>"
+				
+			for (var i = 0; i < params.length; ++i)
+			{
+				if (params[i].search("_") >=0)
+				{
+					continue;
+				}
+				
+				sceneData += params[i];
+				
+				if (i < params.length - 1)
+				{
+					sceneData += "|";
+				}
+			}
+			
+			sceneData += "</outline>";
+		}
+	}
 }
 
 function exportTexture(obj,validFileName)
@@ -644,6 +709,10 @@ function exportTexture(obj,validFileName)
     //var validFileName = makeValidFileName(obj.name);
     sceneData += "<imageType>" + "Texture" + "</imageType>\n";
     sceneData += "<name>" + validFileName + "</name>\n";
+	
+	// 透明度
+	sceneData += "<opacity>" + obj.opacity +"</opacity>";
+		
     obj.visible = true;
     saveScenePng(duppedPsd.duplicate(), validFileName, true);
     obj.visible = false;
@@ -668,33 +737,33 @@ function exportImage(obj,validFileName)
         sceneData += "<imageSource>" + "Custom" + "</imageSource>\n";      
     }
 
-  if (oriName.search("_9S") >= 0)
-  {
-      sceneData += "<imageType>" + "SliceImage" + "</imageType>\n";
-      obj.visible = true;
-      var _objName = obj.name
-      // var newDoc = app.documents.add(duppedPsd.width, duppedPsd.height,duppedPsd.resolution, _objName+"doc",NewDocumentMode.RGB,DocumentFill.TRANSPARENT)
-      // app.activeDocument = duppedPsd
-      // obj.copy()
-      // app.activeDocument = newDoc
-      // newDoc.paste()
-      //   newDoc.activeLayer.name = _objName
-      var recSize = getLayerRec(duppedPsd.duplicate(),true);
-        sceneData += "<position>";
-        sceneData += "<x>" + recSize.x + "</x>";
-        sceneData += "<y>" + recSize.y + "</y>";
-        sceneData += "</position>";
+	if (oriName.search("_9S") >= 0)
+	{
+	  sceneData += "<imageType>" + "SliceImage" + "</imageType>\n";
+	  obj.visible = true;
+	  var _objName = obj.name
+	  // var newDoc = app.documents.add(duppedPsd.width, duppedPsd.height,duppedPsd.resolution, _objName+"doc",NewDocumentMode.RGB,DocumentFill.TRANSPARENT)
+	  // app.activeDocument = duppedPsd
+	  // obj.copy()
+	  // app.activeDocument = newDoc
+	  // newDoc.paste()
+	  //   newDoc.activeLayer.name = _objName
+	  var recSize = getLayerRec(duppedPsd.duplicate(),true);
+		sceneData += "<position>";
+		sceneData += "<x>" + recSize.x + "</x>";
+		sceneData += "<y>" + recSize.y + "</y>";
+		sceneData += "</position>";
 
-        sceneData += "<size>";
-        sceneData += "<width>" + recSize.width + "</width>";
-        sceneData += "<height>" + recSize.height + "</height>";
-        sceneData += "</size>";
+		sceneData += "<size>";
+		sceneData += "<width>" + recSize.width + "</width>";
+		sceneData += "<height>" + recSize.height + "</height>";
+		sceneData += "</size>";
 
-      // _9sliceCutImg(newDoc,_objName,validFileName); 
-      _9sliceCutImg(duppedPsd.duplicate(),_objName,validFileName); 
-      obj.visible = false;
-      return;
-  }
+	  // _9sliceCutImg(newDoc,_objName,validFileName); 
+	  _9sliceCutImg(duppedPsd.duplicate(),_objName,validFileName); 
+	  obj.visible = false;
+	  return;
+	}
     else if(oriName.search("LeftHalf") > 0)       //左右对称的图片切左边一半
     {
         sceneData += "<imageType>" + "LeftHalfImage" + "</imageType>\n";
@@ -764,6 +833,9 @@ function exportImage(obj,validFileName)
         sceneData += "<imageType>" + "Image" + "</imageType>\n";
     }
 
+	// 透明度
+	sceneData += "<opacity>" + obj.opacity +"</opacity>";
+	
     obj.visible = true;
     saveScenePng(duppedPsd.duplicate(), validFileName, true);
     obj.visible = false;
@@ -937,10 +1009,17 @@ function makeValidFileName(fileName)
 {
     var validName = fileName.replace(/^\s+|\s+$/gm, ''); // trim spaces
     //删除九宫格关键字符
-    validName = validName.replace(/\s*_9S(\:\d+)+/g,"")
+    validName = validName.replace(/\s*_9S(\:\d+)+/g,"");
+	
+	// 删除渐变色关键字
+	validName = validName.replace(/\s*_JB(\:[a-zA-Z0-9]+)+/g,"");
+	
+	// 删除outline
+	validName = validName.replace(/\s*_OL(\:[a-zA-Z0-9]+)+/g,"");
+	
     validName = validName.replace(/[\\\*\/\?:"\|<>]/g, ''); // remove characters not allowed in a file name
     validName = validName.replace(/[ ]/g, '_'); // replace spaces with underscores, since some programs still may have troubles with them
-
+	
     if (validName.match("Common") || validName.match("Global"))
     {
         validName = validName.substring (0,validName.lastIndexOf ("@"));  //截取@之后的字符串作为图片的名称。
