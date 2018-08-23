@@ -711,7 +711,7 @@ function exportTexture(obj,validFileName)
     sceneData += "<name>" + validFileName + "</name>\n";
 	
 	// 透明度
-	sceneData += "<opacity>" + obj.opacity +"</opacity>";
+	// sceneData += "<opacity>" + obj.opacity +"</opacity>";
 		
     obj.visible = true;
     saveScenePng(duppedPsd.duplicate(), validFileName, true);
@@ -759,6 +759,9 @@ function exportImage(obj,validFileName)
 		sceneData += "<height>" + recSize.height + "</height>";
 		sceneData += "</size>";
 
+		// 透明度
+		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
+		
 	  // _9sliceCutImg(newDoc,_objName,validFileName); 
 	  _9sliceCutImg(duppedPsd.duplicate(),_objName,validFileName); 
 	  obj.visible = false;
@@ -781,6 +784,9 @@ function exportImage(obj,validFileName)
         sceneData += "<height>" + recSize.height + "</height>";
         sceneData += "</size>";
         
+		// 透明度
+		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
+		
         cutLeftHalf(duppedPsd.duplicate(),validFileName); 
         obj.visible = false;
         return;
@@ -803,6 +809,9 @@ function exportImage(obj,validFileName)
         sceneData += "<height>" + recSize.height + "</height>";
         sceneData += "</size>";
         
+		// 透明度
+		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
+		
         cutBottomHalf(duppedPsd.duplicate(),validFileName); 
         obj.visible = false;
         return;
@@ -824,6 +833,9 @@ function exportImage(obj,validFileName)
         sceneData += "<height>" + recSize.height + "</height>";
         sceneData += "</size>";
         
+		// 透明度
+		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
+		
         cutQuarter(duppedPsd.duplicate(),validFileName); 
         obj.visible = false;
         return;
@@ -831,11 +843,11 @@ function exportImage(obj,validFileName)
     else
     {
         sceneData += "<imageType>" + "Image" + "</imageType>\n";
+		
+		// 透明度
+		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
     }
 
-	// 透明度
-	sceneData += "<opacity>" + obj.opacity +"</opacity>";
-	
     obj.visible = true;
     saveScenePng(duppedPsd.duplicate(), validFileName, true);
     obj.visible = false;
