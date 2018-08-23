@@ -31,6 +31,13 @@ namespace PSDUIImporter
             Color color;
             if (UnityEngine.ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
             {
+                if (image.opacity > -1)
+                {
+                    color.a = image.opacity / 100f;
+                    
+                    Debug.Log("Opacity:" + color.a);
+                }
+
                 myText.color = color;
             }
             else
@@ -55,7 +62,7 @@ namespace PSDUIImporter
             }
             else
             {
-                fontFolder = fontFolder = PSDImporterConst.FONT_FOLDER; 
+                fontFolder = PSDImporterConst.FONT_FOLDER; 
             }
             string fontFullName = fontFolder + image.arguments[1] + PSDImporterConst.FONT_SUFIX;
             Debug.Log("font name ; " + fontFullName);
@@ -74,6 +81,11 @@ namespace PSDUIImporter
             //设置对齐
             if (image.arguments.Length >= 5)
                 myText.alignment = ParseAlignmentPS2UGUI(image.arguments[4]);
+            else
+            {
+                // 默认居中
+                myText.alignment = TextAnchor.MiddleLeft;
+            }
 
             rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
             rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
