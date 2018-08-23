@@ -87,6 +87,28 @@ namespace PSDUIImporter
                 myText.alignment = TextAnchor.MiddleLeft;
             }
 
+            // OutLine
+            if (!string.IsNullOrEmpty(image.outline))
+            {
+                Debug.LogError(image.outline);
+
+                var _temp = image.outline.Split('|');
+
+                // 第一位颜色
+                Color effectColor;
+
+                Outline _outline = ownObj.AddMissingComponent<Outline>();
+
+                if (UnityEngine.ColorUtility.TryParseHtmlString(("#" + _temp[0]), out effectColor))
+                {
+                    _outline.effectColor = effectColor;
+                }
+                // 第二位
+
+                // 第三位
+
+            }
+
             rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
             rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
         }

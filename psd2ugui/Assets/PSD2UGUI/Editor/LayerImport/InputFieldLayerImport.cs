@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -79,6 +79,7 @@ namespace PSDUIImporter
                             }
 
                             _text.supportRichText = false;
+                            _text.text = "";
 
                             if (inputfield.textComponent != null)
                             {
@@ -110,7 +111,7 @@ namespace PSDUIImporter
                             }
 
                             inputfield.placeholder = PSDImportUtility.canvas.transform.Find(_temp.name).GetComponent<Text>();
-                          ((Text)inputfield.placeholder).supportRichText = false;
+                            ((Text)inputfield.placeholder).supportRichText = false;
 
                             //UnityEngine.UI.Text text = (UnityEngine.UI.Text)inputfield.placeholder;//.transform.Find("Placeholder").GetComponent<UnityEngine.UI.Text>();
                             //Color color;
