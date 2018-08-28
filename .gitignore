@@ -10,3 +10,4 @@ psd2ugui.sln
 psd2ugui.v12.suo
 *.userprefs
 *LuaProject
+/psd2ugui/.vs

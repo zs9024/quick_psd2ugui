@@ -19,6 +19,12 @@ file/open打开文件“ps安装目录\Presets\Scripts\Export PSDUI.jsx”，目
 * 有问题或者建议、想法可以加QQ群654564220讨论
 ## 版本
   v1.0.5<br>
+  2018.08.20<br>
+  1.添加输入框导入<br>
+  2.支持文本在PS中设置透明度,导出以后在Unity中生效<br>
+  3.添加OutLine支持<br>
+
+  v1.0.5<br>
   2018.03.06<br>
   1.整合快速ui代码生成（QuickCode）模块<br>
   2.ps cc text报错说明<br>
