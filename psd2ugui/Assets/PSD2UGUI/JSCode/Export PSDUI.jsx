@@ -732,6 +732,17 @@ function exportImage(obj,validFileName)
     {
         sceneData += "<imageSource>" + "Global" + "</imageSource>\n";
     }
+	else if(obj.name.search("CustomAtlas") >= 0)
+	{
+		sceneData += "<imageSource>" + "CustomAtlas" + "</imageSource>\n";
+		
+		var atlasName = obj.name.substring (obj.name.lastIndexOf("@CustomAtlas"), obj.name.length);
+		// 拆分出图集名
+		
+		
+		// 添加图集名
+		sceneData += "<AtlasName>" + "" + "</AtlasName>";
+	}
     else
     {
         sceneData += "<imageSource>" + "Custom" + "</imageSource>\n";      
@@ -1032,11 +1043,15 @@ function makeValidFileName(fileName)
     validName = validName.replace(/[\\\*\/\?:"\|<>]/g, ''); // remove characters not allowed in a file name
     validName = validName.replace(/[ ]/g, '_'); // replace spaces with underscores, since some programs still may have troubles with them
 	
-    if (validName.match("Common") || validName.match("Global"))
+    if (validName.match("Common") || 
+		validName.match("Global") ||
+		vaildName.match("CustomAtlas"))
     {
-        validName = validName.substring (0,validName.lastIndexOf ("@"));  //截取@之后的字符串作为图片的名称。
+        validName = validName.substring (0,validName.lastIndexOf ("@"));  //截取@之前的字符串作为图片的名称。
     }
-    else if(!sourcePsdName.match("Common") || !sourcePsdName.match("Global"))    // 判断是否为公用的PSD素材文件，如果不是，则自动为图片增加后缀，防止重名。 公用psd文件的图片层不允许重名。
+    else if(!sourcePsdName.match("Common") ||
+			!sourcePsdName.match("Global") ||
+			!sourcePsdName.match("CustomAtlas")    // 判断是否为公用的PSD素材文件，如果不是，则自动为图片增加后缀，防止重名。 公用psd文件的图片层不允许重名。
     {
         validName += "_" + uuid++;
     }

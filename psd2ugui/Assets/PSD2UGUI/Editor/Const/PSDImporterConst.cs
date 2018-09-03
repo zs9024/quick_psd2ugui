@@ -1,12 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
-namespace PSDUIImporter
+﻿namespace PSDUIImporter
 {
     public class PSDImporterConst
     {
         public const string BASE_FOLDER = "UI/";
         public const string PNG_SUFFIX = ".png";
-        public const string Globle_BASE_FOLDER = "Assets/Textures/HomeCommon/";        //公用ui路径，按需修改
+
+        /// <summary>
+        /// 公用ui路径，按需修改
+        /// </summary>
+        public const string Globle_BASE_FOLDER = "Assets/Textures/HomeCommon/";
+
         public const string Globle_FOLDER_NAME = "HomeCommon";
 
         public const string RENDER = "Render";
@@ -15,11 +18,13 @@ namespace PSDUIImporter
 
         //字体路径，按需修改
         public const string FONT_FOLDER = "Assets/PSD2UGUI/Font/";
+
         public const string FONT_STATIC_FOLDER = "Assets/PSD2UGUI/Font/StaticFont/";
         public const string FONT_SUFIX = ".ttf";
 
         //修改资源模板加载路径，不能放在resources目录
         public const string PSDUI_PATH = "Assets/PSD2UGUI/Template/UI/";
+
         public const string PSDUI_SUFFIX = ".prefab";
 
         public static string ASSET_PATH_EMPTY = PSDUI_PATH + "Empty" + PSDUI_SUFFIX;

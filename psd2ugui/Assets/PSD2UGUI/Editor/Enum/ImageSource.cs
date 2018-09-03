@@ -10,6 +10,11 @@ namespace PSDUIImporter
     {
         Common,
         Custom,
-        Global
+        Global,
+
+        /// <summary>
+        /// 自定义图集
+        /// </summary>
+        CustomAtlas,
     }
 }
