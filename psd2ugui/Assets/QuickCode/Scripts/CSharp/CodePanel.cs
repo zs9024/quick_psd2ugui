@@ -50,6 +50,46 @@ public class CodePanel : MonoBehaviour
 	[SerializeField] private Text text_Text33; 
 	#endregion 
 
+	#region UI Variable Assignment 
+	private void InitUI() 
+	{
+		image_CodePanel = transform.GetComponent<Image>(); 
+		text_Title = transform.Find("Title").GetComponent<Text>(); 
+		image_Icon = transform.Find("Icon").GetComponent<Image>(); 
+		image_Button = transform.Find("Button").GetComponent<Image>(); 
+		button_Button = transform.Find("Button").GetComponent<Button>(); 
+		text_Text = transform.Find("Button/Text").GetComponent<Text>(); 
+		toggle_Toggle = transform.Find("Toggle").GetComponent<Toggle>(); 
+		image_Background = transform.Find("Toggle/Background").GetComponent<Image>(); 
+		image_Checkmark = transform.Find("Toggle/Background/Checkmark").GetComponent<Image>(); 
+		text_Label = transform.Find("Toggle/Label").GetComponent<Text>(); 
+		slider_Slider = transform.Find("Slider").GetComponent<Slider>(); 
+		image_Background12 = transform.Find("Slider/Background").GetComponent<Image>(); 
+		image_Fill = transform.Find("Slider/Fill Area/Fill").GetComponent<Image>(); 
+		image_Handle = transform.Find("Slider/Handle Slide Area/Handle").GetComponent<Image>(); 
+		image_Dropdown = transform.Find("Dropdown").GetComponent<Image>(); 
+		dropdown_Dropdown = transform.Find("Dropdown").GetComponent<Dropdown>(); 
+		text_Label17 = transform.Find("Dropdown/Label").GetComponent<Text>(); 
+		image_Arrow = transform.Find("Dropdown/Arrow").GetComponent<Image>(); 
+		image_Template = transform.Find("Dropdown/Template").GetComponent<Image>(); 
+		scrollrect_Template = transform.Find("Dropdown/Template").GetComponent<ScrollRect>(); 
+		mask_Viewport = transform.Find("Dropdown/Template/Viewport").GetComponent<Mask>(); 
+		image_Viewport = transform.Find("Dropdown/Template/Viewport").GetComponent<Image>(); 
+		toggle_Item = transform.Find("Dropdown/Template/Viewport/Content/Item").GetComponent<Toggle>(); 
+		image_Item_Background = transform.Find("Dropdown/Template/Viewport/Content/Item/Item Background").GetComponent<Image>(); 
+		image_Item_Checkmark = transform.Find("Dropdown/Template/Viewport/Content/Item/Item Checkmark").GetComponent<Image>(); 
+		text_Item_Label = transform.Find("Dropdown/Template/Viewport/Content/Item/Item Label").GetComponent<Text>(); 
+		image_Scrollbar = transform.Find("Dropdown/Template/Scrollbar").GetComponent<Image>(); 
+		scrollbar_Scrollbar = transform.Find("Dropdown/Template/Scrollbar").GetComponent<Scrollbar>(); 
+		image_Handle29 = transform.Find("Dropdown/Template/Scrollbar/Sliding Area/Handle").GetComponent<Image>(); 
+		image_InputField = transform.Find("InputField").GetComponent<Image>(); 
+		inputfield_InputField = transform.Find("InputField").GetComponent<InputField>(); 
+		text_Placeholder = transform.Find("InputField/Placeholder").GetComponent<Text>(); 
+		text_Text33 = transform.Find("InputField/Text").GetComponent<Text>(); 
+
+	}
+	#endregion 
+
 	#region UI Event Register 
 	private void AddEvent() 
 	{

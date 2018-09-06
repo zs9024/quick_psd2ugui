@@ -561,8 +561,17 @@ namespace Quick.Code
                         {
                             string methodName = variableName.Substring(variableName.IndexOf('_') + 1);
                             if (uiWidgets[i] is Button)
-                            {                                
-                                codeEventText.AppendFormat(onClickSerilCode, variableName, methodName);
+                            {
+                                string onClickStr = string.Format(onClickSerilCode, variableName, methodName);
+                                if (hasEventWidget)
+                                {
+                                    string str = codeEventText.ToString();
+                                    codeEventText.Insert(str.LastIndexOf(';') + 1, "\n" + onClickStr);
+                                }
+                                else
+                                {
+                                    codeEventText.Append(onClickStr);
+                                }
                                 codeEventText.AppendFormat(btnCallbackSerilCode, methodName);
 
                                 hasEventWidget = true;
