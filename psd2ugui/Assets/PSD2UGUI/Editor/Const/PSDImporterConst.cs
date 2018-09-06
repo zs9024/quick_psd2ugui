@@ -86,6 +86,27 @@ namespace PSDUIImporter
                 FONT_STATIC_FOLDER = _config.m_staticFontPath;
                 PSDUI_PATH = _config.m_psduiTemplatePath;
 
+				// 重生成路径
+                ASSET_PATH_EMPTY = PSDUI_PATH + "Empty" + PSDUI_SUFFIX;
+                ASSET_PATH_BUTTON = PSDUI_PATH + "Button" + PSDUI_SUFFIX;
+                ASSET_PATH_TOGGLE = PSDUI_PATH + "Toggle" + PSDUI_SUFFIX;
+                ASSET_PATH_CANVAS = PSDUI_PATH + "Canvas" + PSDUI_SUFFIX;
+                ASSET_PATH_EVENTSYSTEM = PSDUI_PATH + "EventSystem" + PSDUI_SUFFIX;
+                ASSET_PATH_GRID = PSDUI_PATH + "Grid" + PSDUI_SUFFIX;
+                ASSET_PATH_IMAGE = PSDUI_PATH + "Image" + PSDUI_SUFFIX;
+                ASSET_PATH_RAWIMAGE = PSDUI_PATH + "RawImage" + PSDUI_SUFFIX;
+                ASSET_PATH_HALFIMAGE = PSDUI_PATH + "HalfImage" + PSDUI_SUFFIX;
+                ASSET_PATH_SCROLLVIEW = PSDUI_PATH + "ScrollView" + PSDUI_SUFFIX;
+                ASSET_PATH_SLIDER = PSDUI_PATH + "Slider" + PSDUI_SUFFIX;
+                ASSET_PATH_TEXT = PSDUI_PATH + "Text" + PSDUI_SUFFIX;
+                ASSET_PATH_SCROLLBAR = PSDUI_PATH + "Scrollbar" + PSDUI_SUFFIX;
+                ASSET_PATH_GROUP_V = PSDUI_PATH + "VerticalGroup" + PSDUI_SUFFIX;
+                ASSET_PATH_GROUP_H = PSDUI_PATH + "HorizontalGroup" + PSDUI_SUFFIX;
+                ASSET_PATH_INPUTFIELD = PSDUI_PATH + "InputField" + PSDUI_SUFFIX;
+                ASSET_PATH_LAYOUTELEMENT = PSDUI_PATH + "LayoutElement" + PSDUI_SUFFIX;
+                ASSET_PATH_TAB = PSDUI_PATH + "Tab" + PSDUI_SUFFIX;
+                ASSET_PATH_TABGROUP = PSDUI_PATH + "TabGroup" + PSDUI_SUFFIX;
+				
                 Debug.Log("Load config.");
             }
 
