@@ -98,7 +98,7 @@ namespace Quick.Code
 --------------------------------------------------------------------------------";
 
         public const string assignCodeFmtLua = "\tself.{0} = self.transform:Find(\"{1}\"):GetComponent(\"{2}\"); \n";
-        public const string assignGameObjectCodeFmtLua = "\t\tself.{0} = self.transform.Find(\"{1}\").gameObject; \n";
+        public const string assignGameObjectCodeFmtLua = "\t\tself.{0} = self.transform:Find(\"{1}\").gameObject; \n";
         //根物体上挂载的控件
         public const string assignRootCodeFmtLua = "\tself.{0} = self.transform:GetComponent(\"{1}\"); \n";
 
