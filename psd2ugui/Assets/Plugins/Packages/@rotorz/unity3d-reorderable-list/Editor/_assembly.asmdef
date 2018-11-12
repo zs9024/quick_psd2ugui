@@ -1,0 +1,16 @@
+{
+    "name": "rotorz.unity3d-reorderable-list.editor",
+    "references": [
+        "rotorz.unity3d-reorderable-list",
+        "rotorz.dotnet-exception-utils",
+        "rotorz.dotnet-type-utils",
+        "rotorz.unity3d-editor-menu.editor",
+        "rotorz.unity3d-utils.editor"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

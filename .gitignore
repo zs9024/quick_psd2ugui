@@ -3,6 +3,7 @@
 # unity library
 psd2ugui/Library/
 psd2ugui/Temp/
+psd2ugui/Packages/
 
 #vs proj
 *.csproj

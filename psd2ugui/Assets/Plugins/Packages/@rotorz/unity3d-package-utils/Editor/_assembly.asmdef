@@ -1,0 +1,9 @@
+{
+    "name": "rotorz.unity3d-package-utils.editor",
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
