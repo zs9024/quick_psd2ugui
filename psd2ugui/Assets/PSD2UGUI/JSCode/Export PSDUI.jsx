@@ -1247,8 +1247,10 @@ function _9sliceCutImg(doc,layerName,vaildName){
     {
         doc.activeLayer = _obj;
         doc.selection.select(selRegion[i]);
-        doc.selection.copy();
-        var newStem = doc.paste();
+        // doc.selection.copy();
+        executeAction(charIDToTypeID("CpTL"));
+        // var newStem = doc.paste();
+        var newStem = doc.activeLayer;
         newStem.name = vaildName;
         var deltaX = 0;
         var deltaY = 0;
