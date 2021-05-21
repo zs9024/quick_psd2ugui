@@ -52,7 +52,7 @@ namespace PSDUIImporter
             float size;
             if (float.TryParse(image.arguments[2], out size))
             {
-                myText.fontSize = (int)size;
+                myText.fontSize = (int) Math.Round(size);
             }
 
             myText.text = image.arguments[3];
