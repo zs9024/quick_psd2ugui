@@ -37,6 +37,10 @@ namespace PSDUIImporter
                     
                     Debug.Log("Opacity:" + color.a);
                 }
+                
+                color.r = (float)Math.Pow((color.r ), 0.45) ;
+                color.g = (float)Math.Pow((color.g ), 0.45) ;
+                color.b = (float)Math.Pow((color.b ), 0.45) ;
 
                 myText.color = color;
             }
