@@ -18,7 +18,7 @@ file/open打开文件“ps安装目录\Presets\Scripts\Export PSDUI.jsx”，目
 * ps cc版本报错“错误8800...sceneData += "<string>" + obj.textItem.color.rgb.hexValue + "</string>";”时，可检查text是不是包含了多个色值，要用单色，多色在unity里自己用richtext的color实现
 * 有问题或者建议、想法可以加QQ群654564220讨论
 ## 版本
-  v1.0.5<br>
+  v1.0.6<br>
   2018.08.20<br>
   1.添加输入框导入<br>
   2.支持文本在PS中设置透明度,导出以后在Unity中生效<br>
