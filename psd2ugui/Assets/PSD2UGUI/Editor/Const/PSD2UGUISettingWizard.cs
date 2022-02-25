@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PSD2UGUISettingWizard : ScriptableWizard
 {
-    [MenuItem("QuickTool/PSD2UGUISettingWizard")]
+    [MenuItem("QuickTool/PSD2UGUISettingWizard",false,0)]
     private static void CreateWizard()
     {
         ScriptableWizard.DisplayWizard<PSD2UGUISettingWizard>("Create Light", "Create");
@@ -29,7 +29,7 @@ public class PSD2UGUISettingWizard : ScriptableWizard
         }
         else
         {
-            m_config = new PSD2UGUIConfig();
+            m_config = CreateInstance<PSD2UGUIConfig>();
         }
     }
 
@@ -111,9 +111,9 @@ public class PSD2UGUISettingWizard : ScriptableWizard
         if (GUILayout.Button("创建"))
         {
             if (string.IsNullOrEmpty(m_config.m_commonAtlasPath) ||
-                string.IsNullOrEmpty(m_config.m_commonAtlasPath) ||
-                string.IsNullOrEmpty(m_config.m_commonAtlasPath) ||
-                string.IsNullOrEmpty(m_config.m_commonAtlasPath))
+                string.IsNullOrEmpty(m_config.m_commonAtlasName) ||
+                string.IsNullOrEmpty(m_config.m_psduiTemplatePath) ||
+                string.IsNullOrEmpty(m_config.m_fontPath))
             {
                 ShowNotification(new GUIContent("配置路径不应该为空!"));
 
@@ -143,6 +143,14 @@ public class PSD2UGUISettingWizard : ScriptableWizard
 
         _path = _path.Substring(_index + 1, _path.Length - _index - 1);
 
+        int idx = _path.LastIndexOf('/');
+        string last = _path.Substring(idx, _path.Length - idx);
+        if(last != "/")
+        {
+            _path = _path + "/";
+        }
+        Debug.Log("GetValue:" + _path);
+
         return _path;
     }
 
@@ -155,9 +163,9 @@ public class PSD2UGUISettingWizard : ScriptableWizard
 
         //_psd2UguiConfig = m_config;
 
-        AssetDatabase.DeleteAsset("Assets/PSD2UGUI/PSD2UGUIConfig.asset");
+        AssetDatabase.DeleteAsset(m_config.m_configAssetPath);
 
-        AssetDatabase.CreateAsset(m_config, "Assets/PSD2UGUI/PSD2UGUIConfig.asset");
+        AssetDatabase.CreateAsset(m_config, m_config.m_configAssetPath);
 
         AssetDatabase.SaveAssets();
 
