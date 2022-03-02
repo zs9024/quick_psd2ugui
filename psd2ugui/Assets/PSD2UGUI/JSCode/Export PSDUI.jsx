@@ -139,6 +139,15 @@ function exportLayerSet(_layer)
     {
         return
     }
+
+    if (_layer.name.search("@NoExport") >= 0) {return};    //不导出标识
+    
+    if (_layer.name.search("@PNG") >= 0 || _layer.name.search("@JPG") >= 0) 
+    {
+        exportLayerSetForImage(_layer);
+        return
+    }; 
+    
     if (_layer.name.search("@ScrollView") >= 0)
     {
         exportScrollView(_layer);
@@ -193,6 +202,13 @@ function exportLayerSet(_layer)
         sceneData += "</layers>";
         sceneData += "</Layer>";
     }
+}
+
+//将组导出成图片
+function exportLayerSetForImage(obj)
+{
+    showLayerSets (obj);
+    exportArtLayer(obj);
 }
 
 function exportLayoutElement(obj)
@@ -568,6 +584,7 @@ function exportArtLayer(obj)
 {
     if (typeof(obj) == "undefined") {return};
     if (obj.name.search("@Size") >= 0) {return};
+    if (obj.name.search("@NoExport") >= 0) {return};    //不导出标识
 
     sceneData += "\n<Layer>";
     sceneData += "<type>Normal</type>";
@@ -586,7 +603,13 @@ function exportArtLayer(obj)
     }
     else
     {
-        exportImage(obj,validFileName);
+        var merge = false;
+        if (obj.typename == "LayerSet" && (obj.name.search("@PNG") >= 0 || obj.name.search("@JPG") >= 0))
+        {
+             merge = true;
+        }
+        
+        exportImage(obj,validFileName,merge);
     }
     sceneData += "</image>";
     // sceneData += "</PSImage>";
@@ -596,9 +619,9 @@ function exportArtLayer(obj)
 function exportLabel(obj,validFileName)
 {
     //有些文本如标题，按钮，美术用的是其他字体，可能还加了各种样式，需要当做图片切出来使用
-    if(obj.name.search("_ArtStatic") >= 0)
+    if(obj.name.search("_ArtStatic") >= 0 || obj.name.search("@PNG") >= 0 || obj.name.search("@JPG") >= 0)  
     {
-        exportImage(obj,validFileName);   
+        exportImage(obj,validFileName,true);   
         return;
     }
 
@@ -718,7 +741,8 @@ function exportTexture(obj,validFileName)
     obj.visible = false;
 }
 
-function exportImage(obj,validFileName)
+// merge:是否合并，默认不合并
+function exportImage(obj,validFileName,merge)
 {
     //var validFileName = makeValidFileName(obj.name);
     var oriName = obj.name
@@ -854,13 +878,26 @@ function exportImage(obj,validFileName)
     else
     {
         sceneData += "<imageType>" + "Image" + "</imageType>\n";
-		
-		// 透明度
-		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
     }
 
+    var notMerge = true;
+    if(merge == true)   notMerge = false;
+    
+    //支持jpg，一般用于背景
+    var asJpg = false;
+    var jpgQuality = 100;
+    if(oriName.search("@JPG") > 0) 
+    {
+        asJpg = true;
+        var  nums = oriName.split(":");
+        if ( nums.length == 2) 
+        {
+            jpgQuality = parseInt(nums[1]);
+        }
+    }
+    
     obj.visible = true;
-    saveScenePng(duppedPsd.duplicate(), validFileName, true);
+    saveScenePng(duppedPsd.duplicate(), validFileName, true,notMerge,asJpg,jpgQuality);
     obj.visible = false;
           
 }
@@ -961,7 +998,9 @@ function getLayerRec(psd,notMerge)
     };
 }
 
-function saveScenePng(psd, fileName, writeToDisk,notMerge)
+//param asJpg  bool    导出成jpg格式，默认为png
+//param jpgQuality  int     jpg质量，默认60
+function saveScenePng(psd, fileName, writeToDisk,notMerge,asJpg,jpgQuality)
 {
     // we should now have a single art layer if all went well
     if(!notMerge)
@@ -1014,14 +1053,25 @@ function saveScenePng(psd, fileName, writeToDisk,notMerge)
     
      if (writeToDisk)
      {
-        // save the image
-        var pngFile = new File(destinationFolder + "/" + fileName + ".png");
-        //var pngSaveOptions = new PNGSaveOptions();
-        //psd.saveAs(pngFile, pngSaveOptions, true, Extension.LOWERCASE);
-        
+        var suffix = ".png";
         var pngSaveOptions = new ExportOptionsSaveForWeb();
-        pngSaveOptions.format = SaveDocumentType.PNG;
-        pngSaveOptions.PNG8 = false;
+        
+        if(asJpg == true)
+        {
+            pngSaveOptions.format = SaveDocumentType.JPEG;
+            suffix = ".jpg";
+            if(jpgQuality)
+            {
+                pngSaveOptions.quality = jpgQuality;
+            }
+        }
+        else
+        {
+            pngSaveOptions.format = SaveDocumentType.PNG;
+            pngSaveOptions.PNG8 = false;
+        }
+     
+        var pngFile = new File(destinationFolder + "/" + fileName + suffix);
         psd.exportDocument(pngFile,ExportType.SAVEFORWEB,pngSaveOptions);
     }
     psd.close(SaveOptions.DONOTSAVECHANGES);
@@ -1045,7 +1095,9 @@ function makeValidFileName(fileName)
 	
     if (validName.match("Common") || 
 		validName.match("Global") ||
-		validName.match("CustomAtlas"))
+		validName.match("CustomAtlas") ||
+        validName.match("@PNG") ||
+        validName.match("@JPG"))
     {
         validName = validName.substring (0,validName.lastIndexOf ("@"));  //截取@之前的字符串作为图片的名称。
     }
