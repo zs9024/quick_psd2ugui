@@ -37,6 +37,10 @@ namespace PSDUIImporter
                     
                     Debug.Log("Opacity:" + color.a);
                 }
+                
+                color.r = (float)Math.Pow((color.r ), 0.45) ;
+                color.g = (float)Math.Pow((color.g ), 0.45) ;
+                color.b = (float)Math.Pow((color.b ), 0.45) ;
 
                 myText.color = color;
             }
@@ -48,7 +52,7 @@ namespace PSDUIImporter
             float size;
             if (float.TryParse(image.arguments[2], out size))
             {
-                myText.fontSize = (int)size;
+                myText.fontSize = (int) Math.Round(size);
             }
 
             myText.text = image.arguments[3];
