@@ -603,13 +603,12 @@ function exportArtLayer(obj)
     }
     else
     {
-        var merge = false;
-        if (obj.typename == "LayerSet" && (obj.name.search("@PNG") >= 0 || obj.name.search("@JPG") >= 0))
-        {
-             merge = true;
-        }
+        //if (obj.typename == "LayerSet" && (obj.name.search("@PNG") >= 0 || obj.name.search("@JPG") >= 0))
+        //{
+        //     
+        //}
         
-        exportImage(obj,validFileName,merge);
+        exportImage(obj,validFileName);
     }
     sceneData += "</image>";
     // sceneData += "</PSImage>";
@@ -621,7 +620,7 @@ function exportLabel(obj,validFileName)
     //有些文本如标题，按钮，美术用的是其他字体，可能还加了各种样式，需要当做图片切出来使用
     if(obj.name.search("_ArtStatic") >= 0 || obj.name.search("@PNG") >= 0 || obj.name.search("@JPG") >= 0)  
     {
-        exportImage(obj,validFileName,true);   
+        exportImage(obj,validFileName);   
         return;
     }
 
@@ -744,7 +743,7 @@ function exportTexture(obj,validFileName)
 }
 
 // merge:是否合并，默认不合并
-function exportImage(obj,validFileName,merge)
+function exportImage(obj,validFileName)
 {
     //var validFileName = makeValidFileName(obj.name);
     var oriName = obj.name
@@ -883,9 +882,6 @@ function exportImage(obj,validFileName,merge)
 		// 透明度
 		// sceneData += "<opacity>" + obj.opacity +"</opacity>";
     }
-
-    var notMerge = true;
-    if(merge == true)   notMerge = false;
     
     //支持jpg，一般用于背景
     var asJpg = false;
@@ -901,7 +897,7 @@ function exportImage(obj,validFileName,merge)
     }
     
     obj.visible = true;
-    saveScenePng(duppedPsd.duplicate(), validFileName, true,notMerge,asJpg,jpgQuality);
+    saveScenePng(duppedPsd.duplicate(), validFileName, true,null,asJpg,jpgQuality);
     obj.visible = false;
 
 }
