@@ -35,12 +35,7 @@ namespace PSDUIImporter
 
                             if (image.name.ToLower().Contains("normal"))
                             {
-                                button.image.sprite = sprite;                                
-                                RectTransform rectTransform = button.GetComponent<RectTransform>();
-                                rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
-                                rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
-
-                                adjustButtonBG(image.imageType,button);
+                                setButtonTarget(image, button, sprite);
                             }
                             else if (image.name.ToLower().Contains("pressed"))
                             {
@@ -63,6 +58,10 @@ namespace PSDUIImporter
                                 state.highlightedSprite = sprite;
                                 button.spriteState = state;
                             }
+                            else
+                            {
+                                setButtonTarget(image, button, sprite); //没有标识的处理
+                            }
                         }
                     }
                     else
@@ -73,6 +72,16 @@ namespace PSDUIImporter
                 }
             }
 
+        }
+
+        private void setButtonTarget(PSImage image, UnityEngine.UI.Button button, Sprite sprite)
+        {
+            button.image.sprite = sprite;
+            RectTransform rectTransform = button.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
+            rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
+
+            adjustButtonBG(image.imageType, button);
         }
 
         //调整按钮背景
