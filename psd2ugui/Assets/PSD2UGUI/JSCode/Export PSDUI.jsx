@@ -894,6 +894,10 @@ function exportImage(obj,validFileName)
         {
             jpgQuality = parseInt(nums[1]);
         }
+        
+        sceneData += "<arguments>";
+        sceneData += "<string>" + "JPG" + "</string>";  //标识jpg
+        sceneData += "</arguments>";
     }
     
     obj.visible = true;

@@ -9,6 +9,7 @@ namespace PSDUIImporter
 
         public const string BASE_FOLDER = "UI/";
         public const string PNG_SUFFIX = ".png";
+        public const string JPG_SUFFIX = ".jpg";
 
         /// <summary>
         /// 公用图片路径，按需修改

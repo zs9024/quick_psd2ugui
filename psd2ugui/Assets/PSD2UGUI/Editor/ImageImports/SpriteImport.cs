@@ -28,12 +28,17 @@ namespace PSDUIImporter
                 rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
                 rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
 
-                string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+                string suffix = PSDImporterConst.PNG_SUFFIX;
+                if(image.arguments != null && image.arguments[0] == "JPG")
+                {
+                    suffix = PSDImporterConst.JPG_SUFFIX;
+                }
+                string assetPath = PSDImportUtility.baseDirectory + image.name + suffix;
                 Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
 
                 if (sprite == null)
                 {
-                    Debug.Log("loading asset at path: " + PSDImportUtility.baseDirectory + image.name);
+                    Debug.LogError("loading asset error, at path: " + PSDImportUtility.baseDirectory + image.name + suffix);
                 }
 
                 pic.sprite = sprite;
