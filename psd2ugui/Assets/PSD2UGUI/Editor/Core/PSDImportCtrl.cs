@@ -3,7 +3,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.EventSystems;
 
-#if UNITY_5_3
+#if UNITY_5_3_OR_NEWER
 using UnityEditor.SceneManagement;
 #endif
 
@@ -140,7 +140,7 @@ namespace PSDUIImporter
             }
 #if UNITY_5_2
             if (EditorApplication.SaveCurrentSceneIfUserWantsTo() == false) { return; }
-#elif UNITY_5_3
+#elif UNITY_5_3_OR_NEWER
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() == false) { return; }
 #endif
             PSDImportUtility.baseFilename = Path.GetFileNameWithoutExtension(xmlFilePath);
@@ -151,9 +151,10 @@ namespace PSDUIImporter
         {
 #if UNITY_5_2
             EditorApplication.NewScene();
-#elif UNITY_5_3
+#elif UNITY_5_3_OR_NEWER
             EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
 #endif
+
             Canvas temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_CANVAS, typeof(Canvas)) as Canvas;
             PSDImportUtility.canvas = GameObject.Instantiate(temp) as Canvas;
             PSDImportUtility.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
