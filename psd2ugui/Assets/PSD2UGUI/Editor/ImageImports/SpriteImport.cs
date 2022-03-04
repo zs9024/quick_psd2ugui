@@ -33,12 +33,12 @@ namespace PSDUIImporter
                 {
                     suffix = PSDImporterConst.JPG_SUFFIX;
                 }
-                string assetPath = PSDImportUtility.baseDirectory + image.name + suffix;
+                string assetPath = PSDImportUtility.baseDirectory + image.CustomImageName + suffix;
                 Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
 
                 if (sprite == null)
                 {
-                    Debug.LogError("loading asset error, at path: " + PSDImportUtility.baseDirectory + image.name + suffix);
+                    Debug.LogError("loading asset error, at path: " + assetPath);
                 }
 
                 pic.sprite = sprite;

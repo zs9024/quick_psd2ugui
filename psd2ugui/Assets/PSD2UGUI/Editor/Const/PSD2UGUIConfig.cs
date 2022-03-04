@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PSD2UGUIConfig", menuName = "Creat PSD2UGUIConfig Asset")]
 public class PSD2UGUIConfig : ScriptableObject
 {
+    [Header("通用配置路径")]
+    public string m_configAssetPath = PSDImporterConst.__CONFIG_PATH;
+
     [Header("通用图集路径")]
     public string m_commonAtlasPath = PSDImporterConst.Globle_BASE_FOLDER;
 

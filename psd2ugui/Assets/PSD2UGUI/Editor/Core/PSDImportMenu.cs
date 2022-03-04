@@ -17,6 +17,8 @@ namespace PSDUIImporter
             if (!string.IsNullOrEmpty(inputFile) &&
                 inputFile.StartsWith(Application.dataPath))
             {
+                PSDImporterConst.LoadConfig();  //重载wizard配置
+
                 PSDImportCtrl import = new PSDUIImporter.PSDImportCtrl(inputFile);
                 import.BeginDrawUILayers();
                 import.BeginSetUIParents();

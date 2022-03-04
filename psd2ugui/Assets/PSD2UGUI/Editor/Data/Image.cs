@@ -12,6 +12,14 @@ namespace PSDUIImporter
 
         public string[] arguments;
 
+        public string CustomImageName
+        {
+            get
+            {
+                return customFolder != "" ? customFolder + "/" + name : name;
+            }
+        }
+
         /// <summary>
         /// 图层透明度
         /// </summary>
@@ -26,5 +34,10 @@ namespace PSDUIImporter
         /// 描边
         /// </summary>
         public string outline = "";
+
+        /// <summary>
+        /// 指定目录，相对xml的路径
+        /// </summary>
+        public string customFolder = "";
     }
 }

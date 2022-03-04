@@ -30,7 +30,7 @@ namespace PSDUIImporter
         private ILayerImport groupImport;
         private ILayerImport inputFiledImport;
         private ILayerImport layoutElemLayerImport;
-        private ILayerImport tabGroupLayerImport;
+        private ILayerImport tabGroupLayerImport; 
 
         public PSDImportCtrl(string xmlFilePath)
         {
@@ -162,7 +162,7 @@ namespace PSDUIImporter
             UnityEngine.UI.CanvasScaler scaler = PSDImportUtility.canvas.GetComponent<UnityEngine.UI.CanvasScaler>();
             scaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.matchWidthOrHeight = 1f;
-            scaler.referenceResolution = new Vector2(psdUI.psdSize.width, psdUI.psdSize.height);
+            scaler.referenceResolution = new Vector2(psdUI.psdSize.width, psdUI.psdSize.height);     
 
             // find 
             var _eventSystem = Object.FindObjectOfType<EventSystem>();
@@ -207,7 +207,7 @@ namespace PSDUIImporter
             groupImport = new GroupLayerImport(this);
             inputFiledImport = new InputFieldLayerImport(this);
             layoutElemLayerImport = new LayoutElementLayerImport(this);
-            tabGroupLayerImport = new TabGroupLayerImport(this);
+            tabGroupLayerImport = new TabGroupLayerImport(this);      
         }
 
         public void BeginDrawUILayers()
@@ -260,7 +260,12 @@ namespace PSDUIImporter
 
                     if (image.imageType != ImageType.Label)
                     {
-                        string texturePathName = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+                        string suffix = PSDImporterConst.PNG_SUFFIX;
+                        if (image.arguments != null && image.arguments[0] == "JPG")
+                        {
+                            suffix = PSDImporterConst.JPG_SUFFIX;
+                        }
+                        string texturePathName = PSDImportUtility.baseDirectory + image.CustomImageName + suffix;
 
                         Debug.Log(texturePathName);
                         // modify the importer settings
